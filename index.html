@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1, user-scalable=no, maximum-scale=1, width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="./resources/ol.css">
+        <link rel="stylesheet" href="resources/fontawesome-all.min.css">
+        <link rel="stylesheet" type="text/css" href="resources/horsey.min.css">
+        <link rel="stylesheet" type="text/css" href="resources/ol3-search-layer.min.css">
+        <link href="resources/ol-geocoder.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
+        <link rel="stylesheet" href="./resources/qgis2web.css">
+        
+        <style>
+            html, body {
+                background-color: #f4f4f9;
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header {
+                background-color: #423685;
+                color: white;
+                text-align: center;
+                padding: 60px 15px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .header h1 {
+                margin: 0;
+                font-size: 36px;
+            }
+            .navbar {
+                background-color: #423685;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        position: fixed; /* Membuat navbar tetap di atas */
+        top: 0; /* Menyelaraskan navbar ke atas */
+        width: 100%; /* Memastikan lebar navbar mengikuti lebar layar */
+        z-index: 1000; 
+            }
+
+            .navbar a {
+                color: white;
+                padding: 14px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: block;
+                font-size: 18px;
+            }
+
+            .navbar a:hover {
+                background-color: #575757;
+            }
+
+            .description {
+                padding: 20px;
+                font-size: 16px;
+                line-height: 1.6;
+                background-color: #fff;
+                margin: 20px auto;
+                max-width: 800px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: justify;
+            }
+
+            .description h2 {
+                color: #333;
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            #map {
+                width: 100%;
+                height: 500px;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                margin-top: 20px;
+            }
+            .description-image {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto 20px; /* Untuk menempatkan gambar di tengah dan memberikan jarak ke bawah */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+            .map-container {
+                width: 80%;
+                margin: 30px auto;
+                padding: 15px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .about {
+                padding: 20px;
+                font-size: 16px;
+                line-height: 1.6;
+                background-color: #fff;
+                margin: 20px auto;
+                max-width: 800px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: justify;
+            }
+
+            .footer {
+                text-align: center;
+                padding: 10px;
+                font-size: 14px;
+                background-color: #423685;
+                color: white;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .ol-control > * {
+                background-color: #f8f8f8!important;
+                color: #444444!important;
+                border-radius: 0px;
+            }
+
+            .ol-attribution a, .gcd-gl-input::placeholder, .search-layer-input-search::placeholder {
+                color: #444444!important;
+            }
+
+            .search-layer-input-search {
+                background-color: #f8f8f8!important;
+            }
+
+            .ol-control > *:focus, .ol-control >*:hover {
+                background-color: rgba(248, 248, 248, 0.7)!important;
+            } 
+
+            .ol-control {
+                background-color: rgba(255,255,255,.4) !important;
+                padding: 2px !important;
+            }
+        </style>
+
+        <title>Peta Kelurahan Mewek</title>
+    </head>
+    <body>
+        <!-- Bagian Header -->
+        <div class="header">
+            <h1>Selamat Datang Di Kelurahan Mewek </h1>
+          
+        </div>
+
+        <!-- Bagian Navbar -->
+        <div class="navbar">
+            <a href="#deskripsi">Deskripsi</a>
+            <a href="#peta">Peta</a>
+            <a href="#tentang">Tentang</a>
+        </div>
+
+        <!-- Bagian Deskripsi Kelurahan -->
+        <div class="description" id="deskripsi">
+            <h2>Deskripsi Kelurahan Mewek</h2>
+            <img class="description-image" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYIrFqWXM0A7DHPvdruj_lBNM6lCvPW1D27pn-Lkdexeaxv5ZFmjCkpuz1XBNmtmcTtvtcqqoaxKydgh7GQBD1gsoZ6YzwNhYvZG495-d-Nw5uf6lvZ4cdJ2LSV1vT2qvRF72oBy-cNNoG/s1600/1.jpg" alt="Gambar Kantor Kelurahan">
+            <p>Kelurahan Mewek di Kecamatan Kalimanah, Kabupaten Purbalingga, yang dinamakan dari kata "mewek" yang berarti menangis, merujuk pada cerita sejarah yang penuh kesedihan pada masa lalu, kini berkembang pesat sebagai salah satu wilayah yang strategis di sisi barat daya kota Purbalingga. Kawasan ini memiliki berbagai fasilitas umum, akses jalan yang memadai, serta layanan transportasi yang mempermudah mobilitas warganya. Meskipun begitu, lingkungan di Kelurahan Mewek masih terjaga dengan baik, dengan lahan-lahan hijau yang mendukung sektor pertanian lokal, memberikan suasana yang nyaman bagi penduduknya..</p>
+            <p>Selain potensi alamnya, Kelurahan Mewek juga mengalami modernisasi yang signifikan, terbukti dengan kehadiran beberapa perusahaan (PT) yang mempekerjakan penduduk setempat dan memberikan kontribusi besar terhadap perekonomian wilayah. Perusahaan-perusahaan ini bergerak di berbagai sektor, mulai dari manufaktur hingga pengolahan bahan baku, serta menjalin kerja sama dengan pelaku usaha kecil menengah (UMKM) di sekitar kelurahan, menciptakan sinergi yang mendukung pertumbuhan ekonomi daerah. Kelurahan ini menjadi pilihan strategis bagi pendatang yang ingin mengembangkan bisnis baru, berkat letaknya yang dekat dengan pusat kota dan dukungan infrastruktur yang memadai, tanpa mengesampingkan nilai-nilai tradisional dan kearifan lokal yang tetap aktif melalui kegiatan budaya dan gotong-royong di masyarakat..</p>
+        </div>
+       
+            <h2>Peta Interaktif Kelurahan Mewek</h2>
+    
+
+        <!-- Bagian Peta Interaktif dalam Box -->
+        <div class="map-container" id="peta">
+            <div id="map">
+                <div id="popup" class="ol-popup">
+                    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                    <div id="popup-content"></div>
+                </div>
+            </div>
+        </div>
+
+           <!-- Bagian Tentang Peta -->
+           <div class="about" id="tentang">
+            <h2>Tentang Peta Interaktif Kelurahan Mewek</h2>
+            <p>Peta interaktif Kelurahan Mewek dirancang sebagai sarana visual yang memudahkan pengguna dalam mengeksplorasi wilayah dan fasilitas penting di sekitar kelurahan. Peta ini memiliki antarmuka yang interaktif, memungkinkan pengguna untuk melakukan zoom, menggeser peta, dan menelusuri wilayah secara mendalam, dengan fokus pada penyediaan informasi geografis serta landmark utama, seperti batas wilayah, lokasi fasilitas umum, dan infrastruktur penting. Setiap elemen dalam peta, seperti batas administratif, sungai, jalan, bangunan, fasilitas umum, dan area pertanian, diatur dalam layer terpisah agar pengguna dapat memilih informasi spesifik yang diinginkan. Selain itu, setiap ikon atau area pada peta dapat diklik untuk menampilkan popup informasi terkait, seperti nama fasilitas, jenis bangunan, atau rincian lainnya yang memberikan gambaran komprehensif tanpa harus keluar dari peta. Peta ini juga dilengkapi dengan fitur pencarian, memungkinkan pengguna untuk mencari lokasi tertentu dengan cepat dan navigasi layer switcher yang memungkinkan pengguna mengaktifkan atau menonaktifkan layer tertentu sesuai kebutuhan, misalnya hanya menampilkan jalan dan batas desa tanpa fasilitas umum. Desain peta yang minimalis dan estetis menggunakan warna-warna netral untuk menghindari kebingungan, serta sudah dioptimalkan agar bisa diakses melalui perangkat mobile, memudahkan warga maupun pengunjung untuk menggunakan peta ini di berbagai perangkat. Lebih dari sekadar alat bantu navigasi, peta ini juga mendukung program pembangunan wilayah dan dapat digunakan sebagai alat edukasi serta promosi, menampilkan potensi wilayah seperti area hijau, lokasi industri, dan aksesibilitas yang strategis. Dengan demikian, peta interaktif Kelurahan Mewek ini menjadi sumber informasi yang lengkap dan ramah pengguna bagi warga lokal, pengunjung, maupun calon investor yang tertarik dengan perkembangan wilayah ini.</p>
+        </div>
+
+        <!-- Footer Dibuat oleh -->
+        <div class="footer">
+            <p> © 2024 || Peta Kelurahan Mewek || Dibuat oleh: Siti Nur Kharisma Akbar</p>
+        </div>
+
+        <!-- Script untuk peta interaktif -->
+        <script src="resources/qgis2web_expressions.js"></script>
+        <script src="./resources/functions.js"></script>
+        <script src="./resources/ol.js"></script>
+        <script src="resources/horsey.min.js"></script>
+        <script src="resources/ol3-search-layer.js"></script>
+        <script src="./resources/ol-layerswitcher.js"></script>
+        <script src="resources/ol-geocoder.js"></script>
+        <script src="layers/ADMINISTRASIDESA_AR_25K_1.js"></script>
+        <script src="layers/batasdesa_2.js"></script>
+        <script src="layers/ptbangunan_3.js"></script>
+        <script src="layers/Mewek_Poly_4.js"></script>
+        <script src="layers/Lapangan_5.js"></script>
+        <script src="layers/sawah_6.js"></script>
+        <script src="layers/warungmakan_7.js"></script>
+        <script src="layers/shop_8.js"></script>
+        <script src="layers/kantor_9.js"></script>
+        <script src="layers/kos_10.js"></script>
+        <script src="layers/sekolah_11.js"></script>
+        <script src="layers/rumahh_12.js"></script>
+        <script src="layers/Makam_13.js"></script>
+        <script src="layers/PT_14.js"></script>
+        <script src="layers/Religion_15.js"></script>
+        <script src="layers/Jalandesa_16.js"></script>
+        <script src="layers/sungai_17.js"></script>
+        <script src="styles/ADMINISTRASIDESA_AR_25K_1_style.js"></script>
+        <script src="styles/batasdesa_2_style.js"></script>
+        <script src="styles/ptbangunan_3_style.js"></script>
+        <script src="styles/Mewek_Poly_4_style.js"></script>
+        <script src="styles/Lapangan_5_style.js"></script>
+        <script src="styles/sawah_6_style.js"></script>
+        <script src="styles/warungmakan_7_style.js"></script>
+        <script src="styles/shop_8_style.js"></script>
+        <script src="styles/kantor_9_style.js"></script>
+        <script src="styles/kos_10_style.js"></script>
+        <script src="styles/sekolah_11_style.js"></script>
+        <script src="styles/rumahh_12_style.js"></script>
+        <script src="styles/Makam_13_style.js"></script>
+        <script src="styles/PT_14_style.js"></script>
+        <script src="styles/Religion_15_style.js"></script>
+        <script src="styles/Jalandesa_16_style.js"></script>
+        <script src="styles/sungai_17_style.js"></script>
+        <script src="./layers/layers.js" type="text/javascript"></script> 
+        <script src="./resources/Autolinker.min.js"></script>
+        <script src="./resources/qgis2web.js"></script>
+    </body>
+</html>
